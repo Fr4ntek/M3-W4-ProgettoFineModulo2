@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]
-    private float _speed = 1.0f;
+    [SerializeField] private float _speed = 1.0f;
+
+    //danno
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,14 +16,13 @@ public class Bullet : MonoBehaviour
         {
             Enemy e = collision.gameObject.GetComponent<Enemy>();
             e.TakeDamage();
-            if(e.GetLifePoints() == 0)
+            if(true) //quando muore
             {
-                e.setDeath(true);
-                e.GetAnim().SetBool("isDeath", true);
                 Destroy(collision.gameObject, 1f);
             }
             Destroy(gameObject);
         }
+
         Destroy(gameObject);
     }
 

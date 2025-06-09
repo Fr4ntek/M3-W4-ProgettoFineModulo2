@@ -483,7 +483,9 @@ GameObject:
   - component: {fileID: 895863768}
   - component: {fileID: 895863770}
   - component: {fileID: 895863771}
-  - component: {fileID: 895863772}
+  - component: {fileID: 895863773}
+  - component: {fileID: 895863774}
+  - component: {fileID: 895863775}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -658,7 +660,19 @@ MonoBehaviour:
   _fireRate: 1
   _fireRange: 8
   _bulletPrefab: {fileID: -6336381916936153023, guid: db3e361cbe73f434cbb6fb9d643da8d7, type: 3}
---- !u!95 &895863772
+--- !u!114 &895863773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895863765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae1b4cc21affe94285d2114e5e1db20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &895863774
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -679,6 +693,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &895863775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895863765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a106a452ec159c3459e52b813b401edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &937207670
 PrefabInstance:
   m_ObjectHideFlags: 0
