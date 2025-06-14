@@ -7,31 +7,37 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed = 1f;
     private PlayerController _player;
-    private AudioSource _audioSource;
+    public AudioSource AudioSource { get; private set; }
+    private Rigidbody2D _rb;
+    private Vector2 playerPosition;
+    [SerializeField] private int dmg = 50;
+    public LifeController LifeController { get; private set; }
     
 
     private void Awake()
     {
         _player = Object.FindObjectOfType<PlayerController>();
-        
     }
     void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
-    
+        AudioSource = GetComponent<AudioSource>();
+        _rb = GetComponent<Rigidbody2D>();
+        LifeController = GetComponent<LifeController>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        EnemyMovement();
+        Move();
     }
 
-    public void EnemyMovement()
+    public void Move()
     {
-        float dir = _speed * Time.deltaTime;
+        //float dir = ;
         if (_player != null)
         {
-            transform.position = Vector2.MoveTowards(transform.position, _player.transform.position, dir);
+            playerPosition = Vector2.MoveTowards(transform.position, _player.transform.position, _speed * Time.fixedDeltaTime);
+            _rb.MovePosition(playerPosition);
+            
         }
     }
 
@@ -39,15 +45,9 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //chiama la takedamage del player fai danno e poi distruggi il nemico
+            collision.gameObject.GetComponent<LifeController>().TakeDamage(dmg);
             Destroy(gameObject);
         }
-    }
-
-    public void TakeDamage()
-    {
-        _audioSource.Play();
-        
     }
 
 }

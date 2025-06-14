@@ -7,22 +7,24 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed = 1.0f;
+    [SerializeField] private int dmg = 20;
 
     //danno
-
+    private void Start()
+    {
+        Destroy(gameObject, 3f);
+    }
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Enemy e = collision.gameObject.GetComponent<Enemy>();
-            e.TakeDamage();
-            if(true) //quando muore
+            LifeController _lc = collision.gameObject.GetComponent<LifeController>();
+            _lc.TakeDamage(dmg);
+            if (_lc.isAlive())
             {
-                Destroy(collision.gameObject, 1f);
+                collision.gameObject.GetComponent<AudioSource>().Play();
             }
-            Destroy(gameObject);
         }
-
         Destroy(gameObject);
     }
 

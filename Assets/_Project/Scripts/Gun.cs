@@ -9,7 +9,12 @@ public class Gun : MonoBehaviour
     [SerializeField] private float _fireRange = 1f;
     private float _fireTime = 0f;
     private GameObject[] enemies;
+    private PlayerController _player;
 
+    private void Start()
+    {
+        _player = Object.FindObjectOfType<PlayerController>();
+    }
     public void Update()
     { 
         Shoot();
@@ -17,16 +22,19 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject enemy = FindNearestEnemy();
-        if (enemy != null)
+        if(CanShoot())
         {
-            if (Time.time > _fireTime)
+            GameObject enemy = FindNearestEnemy();
+            if (enemy != null)
             {
-                Bullet clone = Instantiate(_bulletPrefab, transform.position, transform.rotation);
-                Rigidbody2D rb = clone.GetComponent<Rigidbody2D>();
-                Vector2 dir = (enemy.transform.position - transform.position).normalized;
-                rb.AddForce(dir * clone.GetSpeed(), ForceMode2D.Impulse);
-                _fireTime = Time.time + _fireRate;
+                if (Time.time >= _fireTime)
+                {
+                    Bullet clone = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+                    Rigidbody2D rb = clone.GetComponent<Rigidbody2D>();
+                    Vector2 dir = (enemy.transform.position - transform.position).normalized;
+                    rb.AddForce(dir * clone.GetSpeed(), ForceMode2D.Impulse);
+                    _fireTime = Time.time + _fireRate;
+                }
             }
         }
     }
@@ -45,6 +53,16 @@ public class Gun : MonoBehaviour
             }
         }
         return closest;
+    }
+
+    private bool CanShoot()
+    {
+        if(_player != null)
+        {
+            if (transform.IsChildOf(_player.transform)) return true;
+        }
+        
+        return false;
     }
 
 }
